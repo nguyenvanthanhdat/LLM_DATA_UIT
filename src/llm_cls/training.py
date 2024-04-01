@@ -181,7 +181,7 @@ def main():
             truncation=True,
             return_tensors="pt",
         ), 
-        # batched=True
+        batched=True
     )
 
     
