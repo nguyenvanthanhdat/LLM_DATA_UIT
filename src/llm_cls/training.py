@@ -2,7 +2,7 @@ from src.llm_cls.arguments import ModelArguments, DataTrainingArguments
 import logging, sys, os
 import torch
 import transformers
-from src.llm_cls.data import data
+from llm_cls.data import preprocess_data
 from transformers import (
     HfArgumentParser,
     set_seed,
@@ -162,7 +162,7 @@ def main():
     dataset['dev'] = dataset['test']
     
     # TODO: calculate max length in train split
-    max_length = data.Find_max_length(dataset=dataset, split_dict=None, tokenize_name=model_args.model_name_or_path)
+    max_length = preprocess_data.Find_max_length(dataset=dataset, split_dict=None, tokenize_name=model_args.model_name_or_path)
 
     # TODO: convert labels to classify label
     dataset = dataset.map(lambda example: {"labels": label_dict[example["Label"]]}, remove_columns=["Label"])
