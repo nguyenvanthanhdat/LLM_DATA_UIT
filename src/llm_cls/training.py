@@ -189,6 +189,7 @@ def main():
             dataset = dataset.remove_columns([i])
         except:
             pass
+    print(dataset)
     
     # TODO: model trainer
     trainer = loss_trainer(
