@@ -184,7 +184,11 @@ def main():
         ), 
         batched=True
     )
-    print(dataset)
+    for i in ['Unnamed: 0', 'index', 'topic', 'context', 'Evidence', 'Claim', 'Explanation', 'eval', 'token_type_ids']:
+        try:
+            dataset = dataset.remove_columns([i])
+        except:
+            pass
     
     # TODO: model trainer
     trainer = loss_trainer(
