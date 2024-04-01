@@ -171,7 +171,7 @@ def main():
     # TODO: tokenizer dataset
     if tokenizer.pad_token is None:
         tokenizer.add_special_tokens({'pad_token': '[PAD]'})
-        model.resize_token_embeddings(len(tokenizer))
+        base_model.resize_token_embeddings(len(tokenizer))
     dataset = dataset.map(
         lambda examples: tokenizer(
             examples["Claim"], 
