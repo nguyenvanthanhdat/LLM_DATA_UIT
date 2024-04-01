@@ -1,6 +1,6 @@
 import json
 from abc import ABC, abstractclassmethod
-from datasets import DatasetDict, Dataset, load_from_disk
+from datasets import DatasetDict, Dataset
 from typing import Tuple
 
 class BaseDataset(ABC): 
