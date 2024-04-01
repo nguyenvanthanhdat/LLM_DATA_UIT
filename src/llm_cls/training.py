@@ -2,7 +2,7 @@ from .arguments import ModelArguments, DataTrainingArguments
 import logging, sys, os
 import torch
 import transformers
-from data import preprocess_data
+from .data import preprocess_data
 from transformers import (
     HfArgumentParser,
     set_seed,
