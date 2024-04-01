@@ -1,8 +1,8 @@
-from .arguments import ModelArguments, DataTrainingArguments
+from src.llm_cls.arguments import ModelArguments, DataTrainingArguments
 import logging, sys, os
 import torch
 import transformers
-from .data import data
+from src.llm_cls.data import data
 from transformers import (
     HfArgumentParser,
     set_seed,
