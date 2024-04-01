@@ -1,4 +1,4 @@
-from llm_cls.data.base import *
+from llm_cls.data.base import BaseDataset
 from datasets import load_dataset
 from transformers import AutoTokenizer
 import os
