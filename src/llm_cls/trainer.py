@@ -34,7 +34,7 @@ def compute_metrics(eval_pred):
 class CrossEntropyLossTrainer(Trainer):
     def compute_loss(self, model, inputs, return_outputs=False):
         labels = inputs.pop("labels")
-        print(**inputs)
+        print(inputs)
         # forward pass
         outputs = model(**inputs)
         logits = outputs.get("logits")
