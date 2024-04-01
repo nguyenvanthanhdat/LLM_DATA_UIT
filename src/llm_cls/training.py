@@ -1,4 +1,4 @@
-from arguments import ModelArguments, DataTrainingArguments
+from .arguments import ModelArguments, DataTrainingArguments
 import logging, sys, os
 import torch
 import transformers
