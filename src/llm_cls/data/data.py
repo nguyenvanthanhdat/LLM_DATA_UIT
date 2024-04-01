@@ -33,8 +33,8 @@ def Find_max_length(dataset, split_dict, tokenize_name):
     # tokenizer = AutoTokenizer.from_pretrained(tokenizer_dict[tokenize_name])
     tokenizer = AutoTokenizer.from_pretrained(tokenize_name)
     dataset_temp = dataset['train'].map(lambda examples: tokenizer(
-        examples["sentence2"], 
-        examples["sentence1"],
+        examples["Claim"], 
+        examples["Evidence"],
         ), batched=True)
     # Mergedata = concatenate_datasets([dataset[split_dict[0]],dataset[split_dict[1]],dataset[split_dict[2]]])
     # sorted_sequences = sorted(enumerate(Mergedata['attention_mask']), key=lambda x: len(x[1]), reverse=True)

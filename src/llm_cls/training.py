@@ -35,13 +35,13 @@ logging.basicConfig(
 label_3_dict = {
     "Supported": 0,
     "Refuted": 1,
-    "Not_Enought_Information": 2,
+    "Not_Enough_Information": 2,
 }
 
 number_3_dict = {
     0: "Supported",
     1: "Refuted",
-    2: "Not_Enought_Information",
+    2: "Not_Enough_Information",
 }
 
 
@@ -49,7 +49,7 @@ def main():
 
     # init wandb
     os.system("wandb login 138c38699b36fb0223ca0f94cde30c6d531895ca")
-    # 
+    os.environ["WANDB_PROJECT"] = "LLM_DATA_UIT"
 
     # TODO: Load config 
     parser = HfArgumentParser((ModelArguments, DataTrainingArguments, Seq2SeqTrainingArguments))
@@ -116,8 +116,8 @@ def main():
     tokenizer.pad_token = tokenizer.eos_token
     tokenizer.padding_side = 'right'
 
-    label_dict = label_3_dict if data_args.num_labels == 3 else label_4_dict
-    number_dict = number_3_dict if data_args.num_labels == 3 else number_4_dict 
+    label_dict = label_3_dict
+    number_dict = number_3_dict
     if model_args.model_name_or_path:
         if model_args.use_seq2seq:
             base_model = AutoModelForSeq2SeqLM.from_pretrained(
@@ -152,7 +152,7 @@ def main():
     loss_trainer = loss_dict[data_args.loss_func_name]
     
     # dataset = data.ViNLI(tokenizer_name='xlmr', load_all_labels=data_args.load_all_labels).get_dataset()
-    dataset = load_dataset(data_args.dataset_name, token=data_args.hf_token)
+    dataset = load_dataset(data_args.dataset_name, token=data_args.hf_token, split='train')
 
     # # TODO: clean dataset
     # dataset = dataset.filter(lambda example: example["gold_label"] in list(label_dict.keys()))
@@ -169,6 +169,9 @@ def main():
     # dataset = dataset.rename_column("gold_label", "labels")
 
     # TODO: tokenizer dataset
+    if tokenizer.pad_token is None:
+        tokenizer.add_special_tokens({'pad_token': '[PAD]'})
+        model.resize_token_embeddings(len(tokenizer))
     dataset = dataset.map(
         lambda examples: tokenizer(
             examples["Claim"], 
