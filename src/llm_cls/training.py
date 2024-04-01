@@ -172,6 +172,8 @@ def main():
     if tokenizer.pad_token is None:
         tokenizer.add_special_tokens({'pad_token': '[PAD]'})
         base_model.resize_token_embeddings(len(tokenizer))
+    column_names = dataset.column_names
+    column_names = column_names.remove("labels")
     dataset = dataset.map(
         lambda examples: tokenizer(
             examples["Claim"], 
@@ -184,6 +186,7 @@ def main():
         # batched=True
     )
 
+    dataset =  dataset.remove_columns(column_names)
     
     # TODO: model trainer
     trainer = loss_trainer(
